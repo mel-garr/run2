@@ -8,6 +8,9 @@ RUN npm install
 
 COPY . .
 
+COPY docker-entrypoint.sh /app/docker-entrypoint.sh
+RUN chmod +x /app/docker-entrypoint.sh
+
 EXPOSE 3000
 
-CMD ["sh", "-c", "npm run prisma:dev && npm start"]
+CMD ["./app/docker-entrypoint.sh"]

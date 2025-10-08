@@ -3,10 +3,19 @@ const prisma = new PrismaClient();
 
 async function testDb() {
     try {
-        const newUser = await prisma.user.create({
-            data: {name: "Alince", email:"alice@exemple.com"},
+        const Aemail = "alice@exemple.com";
+        const exitingUser = await prisma.user.findUnique({
+            where: { email: Aemail },
         });
-        console.log("user creater", newUser);
+        if (exitingUser){
+            console.log("User alredy exists: ", exitingUser);
+        }
+        else {
+            const newUser = await prisma.user.create({
+                data: {name: "Alince", email:Aemail},
+            });
+            console.log("user creater", newUser);
+        }
         const users = await prisma.user.findMany();
         console.log("All users in DB:", users);
     }catch (err){
