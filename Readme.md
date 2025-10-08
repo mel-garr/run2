@@ -14,3 +14,18 @@ Prisma most used methodes
 | `count()`      | Counts the number of records matching a filter.                                                    | `await prisma.user.count({ where: { role: "admin" } })`                                                                                                    |
 | `aggregate()`  | Performs operations like **count**, **avg**, **sum**, **min**, **max** on a model.                 | `await prisma.user.aggregate({ _count: true, _avg: { age: true } })`                                                                                       |
 | `groupBy()`    | Groups records by one or more fields (advanced analytics).                                         | `await prisma.user.groupBy({ by: ['role'], _count: true })`                                                                                                |
+
+Common Prisma Field Modifiers & Options
+
+| **Modifier / Attribute**     | **Example**                                               | **Meaning / Use Case**                                                     |
+| ---------------------------- | --------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `@id`                        | `id Int @id @default(autoincrement())`                    | Marks this field as the **primary key**. Usually auto-incremented.         |
+| `@default(value)`            | `createdAt DateTime @default(now())`                      | Sets a **default value** for new records.                                  |
+| `@unique`                    | `email String @unique`                                    | Ensures the field value is **unique** in the table.                        |
+| `@relation()`                | `user User @relation(fields: [userId], references: [id])` | Defines a **relationship** (foreign key) between models.                   |
+| `@updatedAt`                 | `updatedAt DateTime @updatedAt`                           | Automatically updates this field’s value every time the record is updated. |
+| `?`                          | `phone String?`                                           | Makes the field **optional** (can be `null`).                              |
+| `[]`                         | `eves Eve[]`                                              | Represents a **list/array** or **one-to-many relationship**.               |
+| `@map("column_name")`        | `email String @map("user_email")`                         | Maps the Prisma field to a **different DB column name**.                   |
+| `@default(uuid())`           | `id String @id @default(uuid())`                          | Generates a **UUID** instead of an auto-increment number.                  |
+| `@@unique([field1, field2])` | `@@unique([userId, eveId])`                               | Creates a **composite unique constraint** across multiple fields.          |

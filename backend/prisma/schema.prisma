@@ -14,8 +14,37 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
+//just for test prismaxpsotgres
+
 model User {
   id Int @id @default(autoincrement())
   name String
   email String @unique
+}
+
+// ASCENDANCE DB 0.1 => dev
+// ==================
+// USER table
+// ==================
+
+model PUser {
+  id     Int     @id     @default(autoincrement())
+  name   String
+  email  String  @unique
+  phone  String? @unique
+  eves   Eve[]
+}
+
+// ==================
+// Eve table
+// ==================
+
+model Eve {
+  id        Int     @id @default(autoincrement())
+  color     String
+  price     Float
+  autonomie Int
+  ownerId   Int
+  owner     PUser   @relation(fields: [ownerId], references: [id])
 }
