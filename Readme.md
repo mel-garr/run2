@@ -29,3 +29,17 @@ Common Prisma Field Modifiers & Options
 | `@map("column_name")`        | `email String @map("user_email")`                         | Maps the Prisma field to a **different DB column name**.                   |
 | `@default(uuid())`           | `id String @id @default(uuid())`                          | Generates a **UUID** instead of an auto-increment number.                  |
 | `@@unique([field1, field2])` | `@@unique([userId, eveId])`                               | Creates a **composite unique constraint** across multiple fields.          |
+
+
+currently most work i do with express
+| Code snippet                                                 | Description                         |
+| ------------------------------------------------------------ | ----------------------------------- |
+| `const express = require('express'); const app = express();` | Create Express app                  |
+| `app.use(express.json());`                                   | Parse JSON request bodies           |
+| `app.use('/api/auth', authRoutes);`                          | Mount a router on a path            |
+| `app.listen(3000, () => console.log('Server running'));`     | Start server on port 3000           |
+| `const router = express.Router();`                           | Create a router for routes          |
+| `router.post('/signup', (req, res) => {});`                  | Define POST endpoint                |
+| `router.get('/users', (req, res) => {});`                    | Define GET endpoint                 |
+| `module.exports = router;`                                   | Export router for use in `index.js` |
+
