@@ -6,6 +6,7 @@ services:
       - .env
     ports:
       - "${PORT}:${PORT}"
+      - "5555:5555"
     depends_on:
       - db
     volumes:
