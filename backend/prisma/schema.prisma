@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
   output   = "../src/generated/prisma"
@@ -14,37 +8,25 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
-//just for test prismaxpsotgres
-
 model User {
-  id Int @id @default(autoincrement())
-  name String
+  id    Int    @id @default(autoincrement())
+  name  String
   email String @unique
 }
 
-// ASCENDANCE DB 0.1 => dev
-// ==================
-// USER table
-// ==================
-
 model PUser {
-  id     Int     @id     @default(autoincrement())
-  name   String
-  email  String  @unique
-  phone  String? @unique
-  eves   Eve[]
+  id    Int     @id @default(autoincrement())
+  name  String
+  email String  @unique
+  phone String? @unique
+  eves  Eve[]
 }
 
-// ==================
-// Eve table
-// ==================
-
 model Eve {
-  id        Int     @id @default(autoincrement())
+  id        Int    @id @default(autoincrement())
   color     String
   price     Float
   autonomie Int
   ownerId   Int
-  owner     PUser   @relation(fields: [ownerId], references: [id])
+  owner     PUser  @relation(fields: [ownerId], references: [id])
 }
