@@ -18,4 +18,5 @@ else
 fi
 
 echo "Starting the application..."
+npm install bcrypt jsonwebtoken
 npm start
