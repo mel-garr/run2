@@ -15,12 +15,13 @@ model User {
 }
 
 model PUser {
-  id       Int     @id @default(autoincrement())
-  name     String
-  email    String  @unique
-  phone    String? @unique
-  password String
-  eves     Eve[]
+  id           Int            @id @default(autoincrement())
+  name         String
+  email        String         @unique
+  phone        String?        @unique
+  password     String
+  eves         Eve[]
+  Notification Notification[]
 }
 
 model Eve {
@@ -30,4 +31,14 @@ model Eve {
   autonomie Int
   ownerId   Int
   owner     PUser  @relation(fields: [ownerId], references: [id])
+}
+
+model Notification {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  type      String
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  user      PUser    @relation(fields: [userId], references: [id])
 }

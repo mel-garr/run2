@@ -4,4 +4,4 @@ const notiRoutes = require('./routes/notiRoutes');
 
 router.use('/', notiRoutes);
 
-module.exports = notiRoutes
+module.exports = router
