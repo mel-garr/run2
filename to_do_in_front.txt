@@ -1,0 +1,62 @@
+to handle later most of it in the front or depending on the project :
+sign in/login
+
+nput validation / sanitization
+
+Right now, your signup/login just takes whatever is in req.body. Problems that could happen:
+
+Empty fields (email, password, name)
+
+Invalid email format
+
+Password too short or weak
+
+✅ Fix: use something like express-validator or manual checks before calling the service.
+
+2️⃣ Email normalization / case sensitivity
+
+Emails should usually be stored lowercase and compared lowercase.
+
+Right now, User@Email.com vs user@email.com would create duplicate accounts or fail login.
+
+3️⃣ Error messages / security
+
+Currently, you return "Invalid credentials" for both missing user and wrong password.
+
+That’s actually good practice, because it avoids leaking which emails exist.
+
+4️⃣ JWT settings
+
+Currently, token expires in 1 hour (JWT_EXPIRES_IN = '1h') — you may want refresh tokens for longer sessions.
+
+You haven’t implemented token revocation (logging out doesn’t invalidate token immediately).
+
+5️⃣ Rate limiting / brute force protection
+
+No protection against multiple failed login attempts.
+
+Can add rate limiter middleware or temporary account lockout after X failures.
+
+6️⃣ Optional fields / uniqueness
+
+Your PUser model has phone? — you may want to check uniqueness if users provide it during signup.
+
+7️⃣ Password reset / forgot password
+
+Not implemented yet — often a necessary feature.
+
+Typically involves sending a token via email and allowing a password change.
+
+
+===================================
+do i need more security jwt ?
+mplement JWT middleware to protect routes:
+
+Any route that requires authentication will first check the token.
+
+Example: /api/eves can only be accessed if the JWT is valid.
+=================================
+Notification
+maybe add more endpoint for unread notification for exemple (anything that might help filter notifcation)
+=================================
+work with a real email to test smtp bs, moove from etheral to google or else and do real test

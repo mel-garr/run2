@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id    Int    @id @default(autoincrement())
+  name  String
+  email String @unique
+}
+
+model PUser {
+  id       Int     @id @default(autoincrement())
+  name     String
+  email    String  @unique
+  phone    String? @unique
+  password String
+  eves     Eve[]
+  Notification Notification[]
+}
+
+model Eve {
+  id        Int    @id @default(autoincrement())
+  color     String
+  price     Float
+  autonomie Int
+  ownerId   Int
+  owner     PUser  @relation(fields: [ownerId], references: [id])
+}
+
+model Notification {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      PUser    @relation(fields: [userId], references: [id])
+  type      String
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}

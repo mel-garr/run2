@@ -1,16 +1,37 @@
 const { PrismaClient } = require('../../generated/prisma');
 const prisma = new PrismaClient()
-
+const { sendWelcomeEmail } = require("./emailService");
 
 exports.createNotification = async ({ userId, type, message }) => {
-    return await prisma.Notification.create({
+    const user = await prisma.pUser.findUnique({
+        where: { id: Number(userId) },
+    });
+
+    if (!user) {
+        throw new Error('User not found');
+    }
+    
+    const notific =  await prisma.Notification.create({
         data: {
-            userId,
+            userId: user.id,
             type,
             message,
             read: false,
         },
     });
+
+    if (type === "info"){
+        try {
+            await emailService.sendWelcomeEmail(
+            user.email,
+            `New ${type || 'Notification'}`,
+            `<p>${message}</p>`
+        );
+        console.log('Email sent successfully');
+        }catch(err){
+            console.log("failed to send email: ", err.message);
+        }
+    }
 };
 
 exports.getUserNotification = async( userId ) => {
