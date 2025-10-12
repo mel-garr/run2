@@ -20,4 +20,5 @@ fi
 echo "Starting the application..."
 npm install bcrypt jsonwebtoken
 npm install nodemailer
+npm install redis connect-redis express-session
 npm start

@@ -11,7 +11,7 @@ async function initTransporter() {
 async function sendEmail(to, subject, html) {
     const transporter = await initTransporter();
 
-    const info = await transporter.sendEmail({
+    const info = await transporter.sendMail({
         from: `"Ascendance Eve" <no-reply@ascendance.com>`,
         to,
         subject,

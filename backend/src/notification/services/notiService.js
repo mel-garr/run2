@@ -22,7 +22,7 @@ exports.createNotification = async ({ userId, type, message }) => {
 
     if (type === "info"){
         try {
-            await emailService.sendWelcomeEmail(
+            await sendWelcomeEmail(
             user.email,
             `New ${type || 'Notification'}`,
             `<p>${message}</p>`

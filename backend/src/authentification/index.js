@@ -1,8 +1,11 @@
+const authRoutes = require('./routes/authRoutes');
+const { setupAuthSessions } = require("./services/sessionService");
 const express = require('express');
 const router = express.Router();
-const authRoutes = require('./routes/authRoutes');
+
+module.exports = (app) => {
+    setupAuthSessions(app);
+    app.use('/', authRoutes);
+}
 
 
-router.use('/', authRoutes);
-
-module.exports = router
